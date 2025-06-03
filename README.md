@@ -14,5 +14,4 @@ To protect confidentiality, all datasets in this repository are simulated, but t
 4. Engagement Metric Extraction: Deriving like and subscription rates per video to inform future content production strategies.
 
 ## Technologies Used
-SQL
-Excel (used for data visualization during actual work, not included here)
+SQL / Excel (used for data visualization during actual work, not included here)
