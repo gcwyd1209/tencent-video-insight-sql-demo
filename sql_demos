@@ -1,0 +1,39 @@
+-- 1. Completion Rate Per Video
+SELECT
+    v.video_id,
+    v.title,
+    ROUND(AVG(vw.view_seconds * 1.0 / v.duration_seconds), 2) AS avg_completion_rate
+FROM videos v
+JOIN video_views vw ON v.video_id = vw.video_id
+GROUP BY v.video_id
+ORDER BY avg_completion_rate DESC
+LIMIT 10;
+
+-- 2. High-performing Video Index (Threshold > 0.8)
+CREATE VIEW high_performance_videos AS
+SELECT
+    v.video_id,
+    v.title,
+    ROUND(AVG(vw.view_seconds * 1.0 / v.duration_seconds), 2) AS avg_completion_rate
+FROM videos v
+JOIN video_views vw ON v.video_id = vw.video_id
+GROUP BY v.video_id
+HAVING avg_completion_rate > 0.8;
+
+-- 3. Daily Fan Growth Trend
+SELECT 
+    date,
+    new_fans,
+    SUM(new_fans) OVER (ORDER BY date) AS cumulative_fans
+FROM fan_growth;
+
+-- 4. Like/Sub Ratio for Each Video
+SELECT 
+    v.video_id,
+    v.title,
+    COUNT(CASE WHEN vw.liked THEN 1 END) * 1.0 / COUNT(*) AS like_rate,
+    COUNT(CASE WHEN vw.subscribed THEN 1 END) * 1.0 / COUNT(*) AS subscription_rate
+FROM videos v
+JOIN video_views vw ON v.video_id = vw.video_id
+GROUP BY v.video_id
+ORDER BY like_rate DESC;
