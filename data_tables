@@ -1,0 +1,25 @@
+-- Table: videos
+CREATE TABLE videos (
+    video_id TEXT PRIMARY KEY,
+    title TEXT,
+    category TEXT,
+    duration_seconds INTEGER,
+    publish_date DATE
+);
+
+-- Table: video_views
+CREATE TABLE video_views (
+    view_id INTEGER PRIMARY KEY,
+    video_id TEXT,
+    user_id TEXT,
+    view_seconds INTEGER,
+    liked BOOLEAN,
+    subscribed BOOLEAN,
+    view_date DATE
+);
+
+-- Table: fan_growth
+CREATE TABLE fan_growth (
+    date DATE PRIMARY KEY,
+    new_fans INTEGER
+);
